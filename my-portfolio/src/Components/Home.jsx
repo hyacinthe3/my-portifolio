@@ -77,12 +77,12 @@ export default function App() {
               <p><Download className="me-2 text-info" size={24} /> Proficient in HTML, CSS, PHP, Python, and database development.</p>
               <p>Always improving, learning, and pushing the limits of what I can build through technology.</p>
               <a
-                href="/hyacinthe cv.pdf"
+                href="/mycv.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline-info mt-3"
               >
-                <Download className="mycv" /> Download My CV
+                <Download className="me-2" /> Download My CV
               </a>
             </div>
           </div>

@@ -82,7 +82,7 @@ export default function App() {
                 rel="noopener noreferrer"
                 className="btn btn-outline-info mt-3"
               >
-                <Download className="me-2" /> Download My CV
+                <Download className="mycv" /> Download My CV
               </a>
             </div>
           </div>

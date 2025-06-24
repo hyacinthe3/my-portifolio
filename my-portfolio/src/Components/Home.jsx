@@ -169,7 +169,7 @@ export default function App() {
             <p className="flex-grow-1 text-secondary small">
               Driving Teachers can register students, track attendance, payments, exams, and categorize results.
             </p>
-            <a href="#" className="btn btn-info btn-sm text-white fw-semibold align-self-start">Review</a>
+            <a href="https://github.com/hyacinthe3/kurujyejuru" className="btn btn-info btn-sm text-white fw-semibold align-self-start">Review</a>
           </div>
         </div>
       </div>

@@ -45,7 +45,7 @@ export default function App() {
               Hello, I'm <span className="text-dark">IHIMBAZWE Hyacinthe</span>
             </h2>
             <p className="lead mb-4" style={{ maxWidth: "480px" }}>
-              A recent high school graduate and aspiring developer, passionate about solving real-world problems through clean and efficient code.
+              A high school graduate and aspiring developer, passionate about solving real-world problems through clean and efficient code.
             </p>
             <a href="#projects" className="btn btn-gradient btn-lg shadow-sm">
               View My Work
@@ -77,7 +77,7 @@ export default function App() {
               <p><Download className="me-2 text-info" size={24} /> Proficient in HTML, CSS, PHP, Python, and database development.</p>
               <p>Always improving, learning, and pushing the limits of what I can build through technology.</p>
               <a
-                href="/hyacinthe cv.pdf"
+                href="/mycv.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline-info mt-3"
@@ -243,7 +243,7 @@ export default function App() {
           transition: background 0.4s ease;
         }
         .btn-gradient:hover {
-          background: linear-gradient(45deg, #007acc, #3399ff);
+          background: linear-gradient(45deg,rgb(4, 52, 143), #3399ff);
           color: white;
         }
       `}</style>

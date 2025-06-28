@@ -1,26 +1,76 @@
 // src/App.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Envelope, GeoAlt, Telephone, Download } from "react-bootstrap-icons";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import {
+  Envelope,
+  GeoAlt,
+  Telephone,
+  Download,
+  ArrowUp,
+} from "react-bootstrap-icons";
 import logo from "../assets/logo.png";
 import me from "../assets/me.jpeg";
 import autofix from "../assets/autofix.png";
 
 export default function App() {
-  return (
-    <div className="bg-white text-dark" style={{ scrollBehavior: "smooth", fontFamily: 'Segoe UI, sans-serif' }}>
+  const [showTopBtn, setShowTopBtn] = useState(false);
 
-      {/* Header */}
-      <header className="bg-white shadow-sm py-3 border-bottom border-primary sticky-top">
-        <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-          <h1 className="display-5 fw-bold text-primary mb-3 mb-md-0" style={{ cursor: "default" }}>
-            Hyacinthe<span className="text-dark">.</span>
-          </h1>
-          <nav>
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+
+    const handleScroll = () => {
+      setShowTopBtn(window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <div
+      className="bg-white text-dark"
+      style={{ scrollBehavior: "smooth", fontFamily: "Poppins, sans-serif" }}
+    >
+      {/* Scroll to Top Button */}
+      {showTopBtn && (
+        <button
+          onClick={scrollToTop}
+          style={{
+            position: "fixed",
+            bottom: "25px",
+            right: "25px",
+            backgroundColor: "#0d6efd",
+            color: "white",
+            border: "none",
+            borderRadius: "50%",
+            padding: "12px",
+            zIndex: 999,
+            boxShadow: "0 0 10px rgba(0,0,0,0.3)",
+            transition: "0.3s",
+          }}
+        >
+          <ArrowUp size={24} />
+        </button>
+      )}
+
+      {/* Navigation Bar */}
+      <header className="bg-white shadow-sm py-3 sticky-top" style={{ zIndex: 998 }}>
+        <div className="container d-flex flex-wrap justify-content-between align-items-center">
+          <h1 className="fw-bold text-primary fs-3">Hyacinthe<span className="text-dark">.</span></h1>
+          <nav className="d-none d-md-block">
             <ul className="nav nav-pills">
-              {["Home", "About", "Services", "TechStack", "Projects", "Contact"].map(link => (
+              {["Home", "About", "TechStack", "Services", "Projects", "Contact"].map(link => (
                 <li className="nav-item" key={link}>
-                  <a href={`#${link.toLowerCase()}`} className="nav-link text-dark fw-semibold px-3">
+                  <a
+                    href={`#${link.toLowerCase()}`}
+                    className="nav-link text-dark fw-semibold px-3"
+                  >
                     {link}
                   </a>
                 </li>
@@ -31,74 +81,89 @@ export default function App() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="py-5" style={{ background: "#e6f0ff", color: "#003366" }}>
-        <div className="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
-          <div className="text-center text-md-start">
-            <h2 className="display-5 fw-bold mb-3">
-              Hello, I'm <span className="text-dark">IHIMBAZWE Hyacinthe</span>
-            </h2>
-            <p className="lead mb-4" style={{ maxWidth: "480px" }}>
-              An aspiring software developer, passionate about solving real-world problems through clean and efficient code.
-            </p>
-            <a href="#projects" className="btn btn-primary btn-lg shadow-sm rounded-pill">
-              View My Work
-            </a>
-          </div>
-          <div>
-            <img
-              src={me}
-              alt="IHIMBAZWE Hyacinthe"
-              className="rounded-circle shadow-lg img-fluid"
-              style={{ maxWidth: "260px", border: "4px solid #66b2ff", transition: "transform 0.3s ease" }}
-              onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-              onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-            />
-          </div>
+      <section
+        id="home"
+        className="d-flex align-items-center justify-content-center text-center py-5"
+        style={{ minHeight: "100vh", background: "linear-gradient(to right, #e0f7fa, #e1f5fe)" }}
+      >
+        <div className="container">
+          <img
+            src={me}
+            alt="IHIMBAZWE Hyacinthe"
+            className="rounded-circle shadow-lg mb-4 img-fluid"
+            style={{ maxWidth: "180px", border: "4px solid #66b2ff" }}
+          />
+          <h2 className="fw-bold display-4 mb-3">
+            Hey there, I'm <span className="text-primary">IHIMBAZWE Hyacinthe</span>
+          </h2>
+          <p className="lead mb-4 mx-auto" style={{ maxWidth: "700px" }}>
+            A creative and solution-driven software developer passionate about building intuitive, user-focused digital experiences that make an impact.
+          </p>
+          <a href="#projects" className="btn btn-primary btn-lg rounded-pill px-4">
+            🚀 Explore My Work
+          </a>
         </div>
       </section>
 
- {/* About Section */}
-      <section id="about" className="py-5 bg-light border-top border-bottom">
+
+      {/* About Section */}
+      <section id="about" className="py-5 bg-white border-top border-bottom">
         <div className="container">
-          <h3 className="text-center text-primary mb-5 fw-bold">About Me</h3>
-          <div className="row align-items-center">
-            <div className="col-md-8 offset-md-2 text-secondary fs-5">
-              <p> Passionate software developer focused on building user-centered, scalable applications with real-world impact.</p>
-              <p> Proficient in modern web technologies including HTML, CSS, JavaScript, PHP, Python, and database systems like MySQL and MongoDB.</p>
-              <p>Strong problem-solving skills, a growth mindset, and a commitment to continuous learning. Experienced in both frontend and backend development using frameworks like React, Node.js, and Bootstrap.</p>
-              <p>Capable of working independently or collaboratively, with a keen interest in turning ideas into digital solutions that make a difference.</p>
+          <h3 className="text-center text-primary fw-bold mb-4">Who I Am</h3>
+          <div className="row justify-content-center">
+            <div className="col-md-8 fs-5 text-secondary">
+              <p>👋 I'm a curious full-stack developer with a mission to craft elegant, efficient, and meaningful software solutions.</p>
+              <p>🌍 I specialize in both frontend and backend development, leveraging modern frameworks and tools to turn concepts into production-ready applications.</p>
+              <p>💡 I thrive in collaborative environments and love challenges that push me to grow technically and creatively.</p>
               <a
                 href="/mycv.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline-primary mt-3"
               >
-                <Download className="me-2" /> Download My CV
+                <Download className="me-2" /> Grab My CV
               </a>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Tech Stack Section */}
+      <section id="techstack" className="py-5 bg-light border-top border-bottom">
+        <div className="container text-center">
+          <h3 className="text-primary fw-bold mb-4">Technology Arsenal</h3>
+          <p className="text-secondary fs-5 mb-4">These are the tools and languages I use to bring digital ideas to life:</p>
+          <div className="row row-cols-3 row-cols-sm-4 row-cols-md-6 g-4 justify-content-center">
+            {["html", "css", "javascript", "react", "nodejs", "php", "python", "cplusplus"].map((tech, i) => (
+              <div className="col" key={i}>
+                <img
+                  src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech}/${tech}-original.svg`}
+                  alt={tech}
+                  className="img-fluid mb-2"
+                  style={{ height: "48px", transition: "transform 0.3s ease" }}
+                  onMouseEnter={e => e.currentTarget.style.transform = "scale(1.2)"}
+                  onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+                />
+                <div className="text-muted text-capitalize small fw-semibold">{tech}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-5 border-top border-bottom" style={{ backgroundColor: "#e9f5ff" }}>
+      {/* Services */}
+      <section id="services" className="py-5 bg-light border-top border-bottom" data-aos="fade-left">
         <div className="container">
-          <h3 className="text-center text-primary fw-bold mb-4">My Services</h3>
+          <h3 className="text-center text-primary fw-bold mb-4">What I Do</h3>
           <div className="row text-center g-4">
-            {[{
-              title: "Web Development",
-              desc: "Building responsive and user-friendly websites tailored to client needs."
-            }, {
-              title: "Database Design",
-              desc: "Efficient and secure databases to store and manage your data."
-            }, {
-              title: "UI/UX Design",
-              desc: "Designing intuitive interfaces that enhance user engagement."
-            }].map((service, index) => (
+            {[
+              { title: "Web Development", desc: "Modern, responsive web apps that look great on any device." },
+              { title: "Database Design", desc: "Robust, secure, and scalable data architectures." },
+              { title: "UI/UX Design", desc: "Simple, clean designs that prioritize user experience." },
+            ].map((service, index) => (
               <div className="col-md-4" key={index}>
-                <div className="p-4 border rounded shadow-sm h-100">
-                  <h5 className="text-primary fw-bold mb-3">{service.title}</h5>
+                <div className="p-4 rounded shadow-sm h-100 bg-white border-start border-4 border-primary">
+                  <h5 className="fw-bold text-primary mb-2">{service.title}</h5>
                   <p className="text-secondary">{service.desc}</p>
                 </div>
               </div>
@@ -107,67 +172,36 @@ export default function App() {
         </div>
       </section>
 
-      {/* Tech Stack Section */}
-      <section id="techstack" className="py-5 border-top border-bottom" style={{ backgroundColor: "#f0f8ff" }}>
-        <div className="container text-center">
-          <h3 className="text-primary fw-bold mb-4">Tech Stack</h3>
-          <p className="text-secondary mb-4 fs-5">Technologies I work with:</p>
-          <div className="row justify-content-center align-items-center g-4">
-            {["html", "css", "javascript", "react", "nodejs", "php", "python", "cplusplus"].map((tech, i) => (
-              <div className="col-4 col-sm-3 col-md-2 text-center" key={i}>
-                <img
-                  src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech}/${tech}-original.svg`}
-                  alt={tech}
-                  className="img-fluid mb-2"
-                  style={{ height: "50px", transition: "transform 0.3s ease" }}
-                  onMouseEnter={e => e.currentTarget.style.transform = "scale(1.2)"}
-                  onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-                />
-                <div className="text-secondary fw-semibold text-capitalize">{tech}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The rest of the component remains unchanged */}
-
-
-      {/* Projects Section */}
-    {/* Projects Section */}
-      <section id="projects" className="py-5 bg-light border-top border-bottom">
+      {/* Projects */}
+      <section id="projects" className="py-5 bg-white border-top border-bottom" data-aos="zoom-in">
         <div className="container">
-          <h3 className="text-center text-primary fw-bold mb-4">My Projects</h3>
+          <h3 className="text-center text-primary fw-bold mb-4">Featured Projects</h3>
           <div className="row g-4">
             {[{
               title: "AutoFix",
-              desc: "AutoFix is a modern web platform that connects drivers experiencing car issues with nearby garages. It uses geolocation to calculate the distance between the user and garages, allowing users to send service requests based on proximity. The project aims to simplify emergency vehicle repairs, reduce downtime, and improve safety on the roads.",
+              desc: "Find and contact nearby garages using geolocation. Ideal for roadside emergencies.",
               tech: ["React", "Node.js", "MongoDB", "Bootstrap", "Google Maps API"],
               img: autofix,
               link: "https://autofix-qq1k.vercel.app/"
             }, {
-              title: "Kurujyejuru Driving School System",
-              desc: "This is a comprehensive school management system designed for driving schools. It allows instructors to register students, record attendance, manage payments, schedule exams, and view categorized performance results. The project was built to digitize and simplify administrative tasks for driving academies.",
+              title: "Kurujyejuru School System",
+              desc: "Admin panel to manage driving school operations including exams, students, and payments.",
               tech: ["PHP", "MySQL", "Bootstrap", "JavaScript"],
               img: logo,
               link: "https://github.com/hyacinthe3/kurujyejuru"
             }].map((project, index) => (
               <div className="col-md-6" key={index}>
-                <div className="card shadow h-100 border-primary">
+                <div className="card h-100 shadow-sm border-0">
                   <img src={project.img} className="card-img-top" alt={project.title} style={{ height: "200px", objectFit: "cover" }} />
-                  <div className="card-body d-flex flex-column">
+                  <div className="card-body">
                     <h5 className="fw-bold text-primary">{project.title}</h5>
-                    <p className="text-secondary small mb-2">{project.desc}</p>
-                    <div className="mb-2">
-                      <strong className="text-dark">Technologies:</strong>
-                      <ul className="list-unstyled mb-2 ms-2">
-                        {project.tech.map((tech, i) => (
-                          <li key={i} className="text-secondary small">- {tech}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <a href={project.link} className="btn btn-primary btn-sm text-white fw-semibold align-self-start">
-                      Review Project
+                    <p className="text-muted">{project.desc}</p>
+                    <strong>Tools Used:</strong>
+                    <ul className="list-unstyled ms-3 small text-muted">
+                      {project.tech.map((tech, i) => <li key={i}>• {tech}</li>)}
+                    </ul>
+                    <a href={project.link} className="btn btn-outline-primary btn-sm mt-2" target="_blank" rel="noopener noreferrer">
+                      Visit Site
                     </a>
                   </div>
                 </div>
@@ -177,60 +211,35 @@ export default function App() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-5 bg-white border-top">
+      {/* Contact */}
+      <section id="contact" className="py-5 bg-light border-top" data-aos="fade-up">
         <div className="container">
           <h3 className="text-center text-primary fw-bold mb-4">Contact Me</h3>
           <div className="row justify-content-center">
-            <div className="col-md-6 mb-4 mb-md-0 fs-5 text-secondary">
-              <p><GeoAlt className="me-3 text-primary" size={28} /> Kigali, Rwanda — KN 7 Ave</p>
-              <p><Telephone className="me-3 text-primary" size={28} /> +250 785 394 831</p>
-              <p><Envelope className="me-3 text-primary" size={28} /> hyacintheihimbazwe98@gmail.com</p>
+            <div className="col-md-5 fs-5 text-secondary mb-4">
+              <p><GeoAlt className="me-2 text-primary" /> Kigali, Rwanda</p>
+              <p><Telephone className="me-2 text-primary" /> +250 785 394 831</p>
+              <p><Envelope className="me-2 text-primary" /> hyacintheihimbazwe98@gmail.com</p>
             </div>
             <div className="col-md-6">
-              <form onSubmit={e => e.preventDefault()} className="p-4 rounded shadow border border-primary">
-                <div className="mb-3">
-                  <input type="text" className="form-control form-control-lg" placeholder="Your Name" required />
-                </div>
-                <div className="mb-3">
-                  <input type="email" className="form-control form-control-lg" placeholder="Email Address" required />
-                </div>
-                <div className="mb-3">
-                  <input type="text" className="form-control form-control-lg" placeholder="Subject" required />
-                </div>
-                <div className="mb-3">
-                  <textarea className="form-control form-control-lg" rows="4" placeholder="Message" required></textarea>
-                </div>
-                <button type="submit" className="btn btn-primary text-white fw-bold w-100 shadow">
-                  Send Message
-                </button>
+              <form className="p-4 shadow-sm border rounded bg-white">
+                <input type="text" className="form-control mb-3" placeholder="Your Name" required />
+                <input type="email" className="form-control mb-3" placeholder="Your Email" required />
+                <input type="text" className="form-control mb-3" placeholder="Subject" required />
+                <textarea rows="4" className="form-control mb-3" placeholder="Message" required></textarea>
+                <button className="btn btn-primary w-100">Send Message</button>
               </form>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="py-4 mt-5 bg-primary text-white text-center">
-        <p className="mb-2">&copy; {new Date().getFullYear()} Hyacinthe. All rights reserved.</p>
-        <div className="d-flex justify-content-center gap-4">
-          {[{
-            href: "https://twitter.com",
-            svgPath: "M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
-          }, {
-            href: "https://linkedin.com",
-            svgPath: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 3a2 2 0 110 4 2 2 0 010-4z"
-          }, {
-            href: "https://github.com/hyacinthe3",
-            svgPath: "M12 2a10 10 0 00-3.16 19.48c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34a2.65 2.65 0 00-1.12-1.48c-.92-.62.07-.6.07-.6a2.1 2.1 0 011.52 1.02 2.12 2.12 0 002.9.83 2.14 2.14 0 01.64-1.34c-2.22-.25-4.55-1.11-4.55-4.94a3.86 3.86 0 011.03-2.7 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.02a9.6 9.6 0 015 0c1.9-1.29 2.74-1.02 2.74-1.02a3.6 3.6 0 01.1 2.66 3.86 3.86 0 011.03 2.7c0 3.84-2.34 4.68-4.57 4.93a2.4 2.4 0 01.68 1.86v2.76c0 .27.18.59.69.48A10 10 0 0012 2z"
-          }].map(({ href, svgPath }, i) => (
-            <a key={i} href={href} target="_blank" rel="noreferrer" style={{ color: "white", fontSize: "1.75rem" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="28" height="28">
-                <path d={svgPath} />
-              </svg>
-            </a>
-          ))}
-        </div>
+      {/* Footer */}
+      <footer className="py-4 bg-primary text-white text-center">
+        <p className="mb-0">&copy; {new Date().getFullYear()} Hyacinthe. All rights reserved.</p>
       </footer>
+
+      
     </div>
   );
 }
